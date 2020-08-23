@@ -1,4 +1,4 @@
-package com.lcc.cloud.payment.domain;
+package com.lcc.cloud.domain;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package com.lcc.cloud.payment.service.impl;
 
+import com.lcc.cloud.domain.Payment;
 import com.lcc.cloud.payment.dao.PaymentDao;
-import com.lcc.cloud.payment.domain.Payment;
 import com.lcc.cloud.payment.service.PaymentService;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;

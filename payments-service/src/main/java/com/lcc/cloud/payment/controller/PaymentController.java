@@ -1,13 +1,13 @@
 package com.lcc.cloud.payment.controller;
 
-import com.lcc.cloud.payment.domain.CommonResult;
-import com.lcc.cloud.payment.domain.Payment;
+import com.lcc.cloud.domain.CommonResult;
+import com.lcc.cloud.domain.Payment;
 import com.lcc.cloud.payment.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +27,7 @@ public class PaymentController {
   }
 
   @PostMapping
-  public CommonResult<?> create(Payment payment) {
+  public CommonResult<?> create(@RequestBody Payment payment) {
     int result = paymentService.create(payment);
     log.info("插入结果：" + result);
     if (result > 0) {

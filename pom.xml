@@ -11,6 +11,8 @@
 
   <modules>
     <module>payments-service</module>
+    <module>consumer-order-service</module>
+    <module>common-module</module>
   </modules>
 
   <properties>
@@ -27,6 +29,21 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>com.lcc.micro-services</groupId>
+        <artifactId>common-module</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.lcc.micro-services</groupId>
+        <artifactId>consumer-order-service</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.lcc.micro-services</groupId>
+        <artifactId>payments-service</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       <!--spring boot 2.2.2-->
       <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -86,6 +103,11 @@
         <artifactId>lombok</artifactId>
         <version>${lombok.version}</version>
         <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <scope>runtime</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>

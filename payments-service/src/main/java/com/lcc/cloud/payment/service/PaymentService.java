@@ -1,6 +1,6 @@
 package com.lcc.cloud.payment.service;
 
-import com.lcc.cloud.payment.domain.Payment;
+import com.lcc.cloud.domain.Payment;
 import org.apache.ibatis.annotations.Param;
 
 /**
