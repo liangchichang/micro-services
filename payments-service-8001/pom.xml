@@ -3,17 +3,22 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <artifactId>cloud-parent</artifactId>
+    <artifactId>lcc_cloud</artifactId>
     <groupId>com.lcc.micro-services</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
+
   <artifactId>payments-service</artifactId>
 
   <dependencies>
     <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.lcc.micro-services</groupId>
-      <artifactId>common-module</artifactId>
+      <artifactId>cloud-common</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -40,6 +45,9 @@
       <artifactId>druid-spring-boot-starter</artifactId>
       <version>1.1.10</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
   </dependencies>
-
 </project>

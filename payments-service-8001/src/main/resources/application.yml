@@ -1,5 +1,6 @@
 server:
   port: 8001
+
 spring:
   application:
     name: payment_service
@@ -19,3 +20,19 @@ management:
     web:
       exposure:
         include: '*'
+
+eureka:
+  instance:
+    #    hostname: eureka7001.com #eureka服务端的实例名称
+    hostname: localhost #eureka服务端的实例名称
+    port: 6001
+  client:
+    service-url:
+      #集群指向其它eureka
+      #defaultZone: http://eureka7002.com:7002/eureka/
+      #单机就是7001自己
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+    #server:
+    #关闭自我保护机制，保证不可用服务被及时踢除
+    #enable-self-preservation: false
+    #eviction-interval-timer-in-ms: 2000

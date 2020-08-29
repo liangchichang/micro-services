@@ -5,14 +5,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.lcc.micro-services</groupId>
-  <artifactId>cloud-parent</artifactId>
+  <artifactId>lcc_cloud</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
-    <module>payments-service</module>
+    <module>cloud-common</module>
+    <module>payments-service-8001</module>
     <module>consumer-order-service</module>
-    <module>common-module</module>
+    <module>registration-center-6001</module>
   </modules>
 
   <properties>
@@ -31,7 +32,7 @@
     <dependencies>
       <dependency>
         <groupId>com.lcc.micro-services</groupId>
-        <artifactId>common-module</artifactId>
+        <artifactId>cloud-common</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -108,6 +109,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-devtools</artifactId>
         <scope>runtime</scope>
+        <version>2.2.2.RELEASE</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
