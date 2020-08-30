@@ -4,6 +4,7 @@ import com.lcc.cloud.domain.CommonResult;
 import com.lcc.cloud.domain.Payment;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,9 +21,9 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 public class ConsumerOrderController {
 
-  public static final String MICRO_SERVER_URL = "http://localhost:8001";
+  public static final String MICRO_SERVER_URL = "http://PAYMENT-SERVICE";
 
-  @Resource
+  @Autowired
   private RestTemplate restTemplate;
 
   @PostMapping("/payment/create")

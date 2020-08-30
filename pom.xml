@@ -12,8 +12,11 @@
   <modules>
     <module>cloud-common</module>
     <module>payments-service-8001</module>
+    <module>payments-service-8002</module>
     <module>consumer-order-service</module>
     <module>registration-center-6001</module>
+    <module>registration-center-6002</module>
+    <module>registration-center-6003</module>
   </modules>
 
   <properties>
@@ -33,16 +36,6 @@
       <dependency>
         <groupId>com.lcc.micro-services</groupId>
         <artifactId>cloud-common</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.lcc.micro-services</groupId>
-        <artifactId>consumer-order-service</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.lcc.micro-services</groupId>
-        <artifactId>payments-service</artifactId>
         <version>${project.version}</version>
       </dependency>
       <!--spring boot 2.2.2-->
@@ -105,12 +98,6 @@
         <version>${lombok.version}</version>
         <optional>true</optional>
       </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-devtools</artifactId>
-        <scope>runtime</scope>
-        <version>2.2.2.RELEASE</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -119,6 +106,7 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.2.2.RELEASE</version>
         <configuration>
           <fork>true</fork>
           <addResources>true</addResources>

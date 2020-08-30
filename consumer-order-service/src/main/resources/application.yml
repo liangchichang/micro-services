@@ -1,18 +1,12 @@
 server:
   port: 7001
 
-
 eureka:
-  instance:
-    #    hostname: eureka7001.com #eureka服务端的实例名称
-    hostname: localhost #eureka服务端的实例名称
-    port: 6001
   client:
+    register-with-eureka: true
+    fetchRegistry: true
     service-url:
-      #集群指向其它eureka
-      #defaultZone: http://eureka7002.com:7002/eureka/
-      #单机
-      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+      defaultZone: http://lcc-eureka-6001.com:6001/eureka/,http://lcc-eureka-6002.com:6002/eureka/,http://lcc-eureka-6003.com:6003/eureka/
     #server:
     #关闭自我保护机制，保证不可用服务被及时踢除
     #enable-self-preservation: false
@@ -20,4 +14,4 @@ eureka:
 
 spring:
   application:
-    name: order_consumer
+    name: order-consumer
