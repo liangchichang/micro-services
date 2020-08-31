@@ -2,6 +2,9 @@ server:
   port: 7001
 
 eureka:
+  instance:
+    instance-id: order7001
+    prefer-ip-address: true
   client:
     register-with-eureka: true
     fetchRegistry: true

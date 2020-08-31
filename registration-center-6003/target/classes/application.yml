@@ -4,6 +4,8 @@ server:
 eureka:
   instance:
     hostname: lcc-eureka-6003.com #eureka服务端的实例名称
+    instance-id: eureka6003
+    prefer-ip-address: true
   #    hostname: localhost #eureka服务端的实例名称
   client:
 #    register-with-eureka: false     #false表示不向注册中心注册自己。
