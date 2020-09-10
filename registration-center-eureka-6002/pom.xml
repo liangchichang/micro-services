@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>registration-center-6003</artifactId>
+  <artifactId>registration-center-eureka-6002</artifactId>
 
   <dependencies>
     <dependency>
