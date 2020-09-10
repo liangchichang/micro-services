@@ -1,0 +1,20 @@
+server:
+  port: 7001
+
+eureka:
+  instance:
+    instance-id: order7001
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://lcc-eureka-6001.com:6001/eureka/,http://lcc-eureka-6002.com:6002/eureka/,http://lcc-eureka-6003.com:6003/eureka/
+    #server:
+    #关闭自我保护机制，保证不可用服务被及时踢除
+    #enable-self-preservation: false
+    #eviction-interval-timer-in-ms: 2000
+
+spring:
+  application:
+    name: order-consumer
