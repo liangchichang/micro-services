@@ -4,6 +4,7 @@ import com.lcc.cloud.domain.CommonResult;
 import com.lcc.cloud.domain.Payment;
 import com.lcc.cloud.payment.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaymentController {
 
   private PaymentService paymentService;
+  @Value("${test}")
+  private String isTest;
 
   public PaymentController(PaymentService paymentService) {
     this.paymentService = paymentService;
@@ -41,6 +44,6 @@ public class PaymentController {
   public CommonResult<Payment> getById(@PathVariable("id") Long id) {
     Payment payment = paymentService.getById(id);
     log.info("查询结果：" + payment);
-    return new CommonResult<>(200, "success", payment);
+    return new CommonResult<>(200, "成功，测试模式：" + isTest, payment);
   }
 }
