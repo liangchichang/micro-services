@@ -1,4 +1,4 @@
-package com.lcc.cloud.payment;
+package com.lcc.cloud.consumer.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,13 +6,13 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author lcc
- * @version 2020/8/21
+ * @version 2020/8/23
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class Application8004 {
+public class OrderConsumerZK7002 {
 
   public static void main(String[] args) {
-    SpringApplication.run(Application8004.class, args);
+    SpringApplication.run(OrderConsumerZK7002.class, args);
   }
 }
