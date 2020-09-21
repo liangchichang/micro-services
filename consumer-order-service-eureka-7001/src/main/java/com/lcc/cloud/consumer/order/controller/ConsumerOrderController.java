@@ -25,7 +25,7 @@ public class ConsumerOrderController {
 
   public static final String MICRO_SERVER_URL = "http://PAYMENT-SERVICE";
   @Autowired
-  private DiscoveryClient discoveryClient1;
+  private DiscoveryClient discoveryClient;
 
   @Autowired
   private RestTemplate restTemplate;
@@ -39,16 +39,15 @@ public class ConsumerOrderController {
   @GetMapping("/payment/{id}")
   public CommonResult<?> getPayment(@PathVariable("id") Long id) {
     log.info("查询支付信息，id：" + id);
-    List<String> services = discoveryClient1.getServices();
+    List<String> services = discoveryClient.getServices();
     for (String service : services) {
       log.info("服务：" + service);
     }
 
-    List<ServiceInstance> instances = discoveryClient1.getInstances("PAYMENT-SERVICE");
+    List<ServiceInstance> instances = discoveryClient.getInstances("PAYMENT-SERVICE");
     for (ServiceInstance instance : instances) {
       log.info("服务：" + instance);
     }
-
     return restTemplate.getForObject(MICRO_SERVER_URL + "/payment/" + id, CommonResult.class);
   }
 }

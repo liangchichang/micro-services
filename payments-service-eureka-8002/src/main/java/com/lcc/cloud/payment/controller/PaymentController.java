@@ -24,6 +24,8 @@ public class PaymentController {
   private PaymentService paymentService;
   @Value("${test}")
   private String isTest;
+  @Value("${server.port}")
+  private String port;
 
   public PaymentController(PaymentService paymentService) {
     this.paymentService = paymentService;
@@ -44,6 +46,6 @@ public class PaymentController {
   public CommonResult<Payment> getById(@PathVariable("id") Long id) {
     Payment payment = paymentService.getById(id);
     log.info("查询结果：" + payment);
-    return new CommonResult<>(200, "成功，测试模式：" + isTest, payment);
+    return new CommonResult<>(200, "成功，服务端口号：:" + port + "，测试模式：" + isTest, payment);
   }
 }
