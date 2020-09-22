@@ -1,5 +1,6 @@
 package com.lcc.cloud.consumer.order.controller;
 
+import com.lcc.cloud.consumer.order.feign.PaymentFeignClient;
 import com.lcc.cloud.domain.CommonResult;
 import com.lcc.cloud.domain.Payment;
 import java.util.List;
@@ -23,21 +24,30 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 public class ConsumerOrderController {
 
-  public static final String MICRO_SERVER_URL = "http://PAYMENT-SERVICE";
   @Autowired
-  private DiscoveryClient discoveryClient;
-
-  @Autowired
-  private RestTemplate restTemplate;
+  private PaymentFeignClient paymentFeignClient;
 
   @PostMapping("/payment/create")
   public CommonResult<?> create(Payment payment) {
     log.info("创建支付信息：" + payment);
-    return restTemplate.postForObject(MICRO_SERVER_URL + "/payment", payment, CommonResult.class);
+    return paymentFeignClient.create(payment);
   }
 
-  @GetMapping("/payment/{id}")
-  public CommonResult<?> getPayment(@PathVariable("id") Long id) {
+  @GetMapping("/payment2/{id}")
+  public CommonResult<?> getPayment2(@PathVariable("id") Long id) {
+    log.info("查询支付信息，id：" + id);
+    return paymentFeignClient.query(id);
+  }
+
+  //第一版请求支付微服务
+  public static final String MICRO_SERVER_URL = "http://PAYMENT-SERVICE";
+  @Autowired
+  private DiscoveryClient discoveryClient;
+  @Autowired
+  private RestTemplate restTemplate;
+
+  @GetMapping("/payment1/{id}")
+  public CommonResult<?> getPayment1(@PathVariable("id") Long id) {
     log.info("查询支付信息，id：" + id);
     List<String> services = discoveryClient.getServices();
     for (String service : services) {
