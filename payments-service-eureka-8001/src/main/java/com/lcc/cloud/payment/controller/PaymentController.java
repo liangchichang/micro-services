@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class PaymentController {
 
-  private PaymentService paymentService;
+  private final PaymentService paymentService;
   @Value("${test}")
   private String isTest;
   @Value("${server.port}")
@@ -30,7 +30,7 @@ public class PaymentController {
   public PaymentController(PaymentService paymentService) {
     this.paymentService = paymentService;
   }
-
+  
   @PostMapping
   public CommonResult<?> create(@RequestBody Payment payment) {
     int result = paymentService.create(payment);
