@@ -19,4 +19,7 @@ public interface PaymentFeignClient {
 
   @GetMapping("/payment/{id}")
   CommonResult<?> query(@PathVariable("id") Long id);
+
+  @GetMapping("/payment/circuitBreaker/{num}")
+  CommonResult<Payment> circuitBreaker(@PathVariable("num") Integer num);
 }

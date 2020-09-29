@@ -3,6 +3,8 @@ package com.lcc.cloud.consumer.order.controller;
 import com.lcc.cloud.consumer.order.feign.PaymentFeignClient;
 import com.lcc.cloud.domain.CommonResult;
 import com.lcc.cloud.domain.Payment;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,21 @@ public class ConsumerOrderController {
   public CommonResult<?> getPayment2(@PathVariable("id") Long id) {
     log.info("查询支付信息，id：" + id);
     return paymentFeignClient.query(id);
+  }
+
+  @HystrixCommand(fallbackMethod = "circuitBreakerHandler", commandProperties = {
+      @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
+  })
+  @GetMapping("/circuitBreaker/{num}")
+  public CommonResult<Payment> circuitBreaker(@PathVariable("num") Integer num) {
+    long millis = System.currentTimeMillis();
+    CommonResult<Payment> result = paymentFeignClient.circuitBreaker(num);
+    System.out.println(System.currentTimeMillis() - millis);
+    return result;
+  }
+
+  private CommonResult<Payment> circuitBreakerHandler(Integer num) {
+    return new CommonResult<>(400, "失败了不好意思，请等下再试！，当前数值：" + num);
   }
 
   //第一版请求支付微服务

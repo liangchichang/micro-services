@@ -3,6 +3,8 @@ package com.lcc.cloud.payment.controller;
 import com.lcc.cloud.domain.CommonResult;
 import com.lcc.cloud.domain.Payment;
 import com.lcc.cloud.payment.service.PaymentService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +32,7 @@ public class PaymentController {
   public PaymentController(PaymentService paymentService) {
     this.paymentService = paymentService;
   }
-  
+
   @PostMapping
   public CommonResult<?> create(@RequestBody Payment payment) {
     int result = paymentService.create(payment);
@@ -47,5 +49,23 @@ public class PaymentController {
     Payment payment = paymentService.getById(id);
     log.info("查询结果：" + payment);
     return new CommonResult<>(200, "成功，服务端口号：:" + port + "，测试模式：" + isTest, payment);
+  }
+
+  @HystrixCommand(fallbackMethod = "circuitBreakerHandler", commandProperties = {
+      @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+  })
+  @GetMapping("/circuitBreaker/{num}")
+  public CommonResult<Payment> circuitBreaker(@PathVariable("num") Integer num) throws InterruptedException {
+    int i = num % 3;
+    if (i == 0) {
+      Thread.sleep(3000);
+    } else if (i == 1) {
+      throw new RuntimeException("失败");
+    }
+    return new CommonResult<>(200, "成功，服务端口号：:" + port);
+  }
+
+  private CommonResult<Payment> circuitBreakerHandler(Integer num) {
+    return new CommonResult<>(400, "失败了不好意思，请等下再试！，当前数值：" + num + "，端口号：" + port);
   }
 }
