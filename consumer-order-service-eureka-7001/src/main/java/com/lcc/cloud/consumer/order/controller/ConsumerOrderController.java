@@ -3,6 +3,7 @@ package com.lcc.cloud.consumer.order.controller;
 import com.lcc.cloud.consumer.order.feign.PaymentFeignClient;
 import com.lcc.cloud.domain.CommonResult;
 import com.lcc.cloud.domain.Payment;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/web/order")
 @Slf4j
+@DefaultProperties(defaultFallback = "globalFallbackHandler")
 public class ConsumerOrderController {
 
   @Autowired
@@ -47,13 +49,22 @@ public class ConsumerOrderController {
   @GetMapping("/circuitBreaker/{num}")
   public CommonResult<Payment> circuitBreaker(@PathVariable("num") Integer num) {
     long millis = System.currentTimeMillis();
-    CommonResult<Payment> result = paymentFeignClient.circuitBreaker(num);
-    System.out.println(System.currentTimeMillis() - millis);
-    return result;
+    return paymentFeignClient.circuitBreaker(num);
+  }
+
+  @GetMapping("/globalCircuitBreaker/{num}")
+  @HystrixCommand
+  public CommonResult<Payment> globalCircuitBreaker(@PathVariable("num") Integer num) {
+    long millis = System.currentTimeMillis();
+    return paymentFeignClient.circuitBreaker(num);
   }
 
   private CommonResult<Payment> circuitBreakerHandler(Integer num) {
     return new CommonResult<>(400, "客户端降级");
+  }
+
+  private CommonResult<Payment> globalFallbackHandler() {
+    return new CommonResult<>(500, "全局客户端降级");
   }
 
   //第一版请求支付微服务
