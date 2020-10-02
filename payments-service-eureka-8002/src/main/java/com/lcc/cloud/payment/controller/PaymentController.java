@@ -65,7 +65,7 @@ public class PaymentController {
     return new CommonResult<>(200, "成功，服务端口号：:" + port);
   }
 
-  private String circuitBreakerHandler() {
-    return "失败了不好意思，请等下再试！端口号：" + port;
+  private CommonResult<Payment> circuitBreakerHandler(Integer num) {
+    return new CommonResult<>(400, "服务端降级，端口号：" + port);
   }
 }
