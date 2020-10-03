@@ -48,14 +48,12 @@ public class ConsumerOrderController {
   })
   @GetMapping("/circuitBreaker/{num}")
   public CommonResult<Payment> circuitBreaker(@PathVariable("num") Integer num) {
-    long millis = System.currentTimeMillis();
     return paymentFeignClient.circuitBreaker(num);
   }
 
   @GetMapping("/globalCircuitBreaker/{num}")
   @HystrixCommand
   public CommonResult<Payment> globalCircuitBreaker(@PathVariable("num") Integer num) {
-    long millis = System.currentTimeMillis();
     return paymentFeignClient.circuitBreaker(num);
   }
 
