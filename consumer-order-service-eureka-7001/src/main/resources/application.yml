@@ -19,8 +19,14 @@ spring:
   application:
     name: order-consumer
 ribbon:
-  ConnectTimeout: 5000
-  ReadTimeout: 5000
+  connectTimeout: 5000
+  readTimeout: 5000
+  okhttp:
+    enabled: true
 feign:
   hystrix:
     enabled: true
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false

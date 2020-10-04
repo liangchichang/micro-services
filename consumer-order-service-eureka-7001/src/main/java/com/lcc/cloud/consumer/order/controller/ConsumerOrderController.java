@@ -44,7 +44,11 @@ public class ConsumerOrderController {
   }
 
   @HystrixCommand(fallbackMethod = "circuitBreakerHandler", commandProperties = {
-      @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
+      @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000"),
+      @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),
+      @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
+      @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "40"),
+      @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10"),
   })
   @GetMapping("/circuitBreaker/{num}")
   public CommonResult<Payment> circuitBreaker(@PathVariable("num") Integer num) {
