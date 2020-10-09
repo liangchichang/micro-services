@@ -23,6 +23,7 @@
     <module>registration-center-eureka-6002</module>
     <module>registration-center-eureka-6003</module>
     <module>config-center-github-9001</module>
+    <module>gate-way-9101</module>
   </modules>
 
   <properties>

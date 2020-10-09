@@ -1,0 +1,24 @@
+server:
+  port: 9101
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: payment-service-1
+          uri: http://localhost:8001
+          predicates:
+            - Header=X-Request-Id, \d+
+        - id: payment-service-2
+          uri: http://localhost:8002
+          predicates:
+            - Header=X-Request-Id, [a-z]+
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://lcc-eureka-6001.com:6001/eureka/,http://lcc-eureka-6002.com:6002/eureka/,http://lcc-eureka-6003.com:6003/eureka/
