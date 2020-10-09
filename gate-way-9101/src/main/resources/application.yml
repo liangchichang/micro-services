@@ -5,15 +5,21 @@ spring:
     name: gateway
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
       routes:
         - id: payment-service-1
-          uri: http://localhost:8001
+#          uri: http://localhost:8001
+          uri: lb://PAYMENT-SERVICE
           predicates:
-            - Header=X-Request-Id, \d+
-        - id: payment-service-2
-          uri: http://localhost:8002
-          predicates:
-            - Header=X-Request-Id, [a-z]+
+            - Path=/payment/**
+#            - Header=X-Request-Id, \d+
+
+#        - id: payment-service-2
+#          uri: http://localhost:8002
+#          predicates:
+#            - Header=X-Request-Id, [a-z]+
 
 eureka:
   instance:
